@@ -25,8 +25,9 @@ describe '.get' do
     password = 'whoop'
 
     body = get_fixture('projects.json')
+    
     stub = stub_request(:get, "http://localhost/a/projects/").
-        with(:headers => {'Accept'=>'application/json'}).
+      with(:headers => {'Accept'=>'application/json'}).
         to_return(:status => 200, :body => body, :headers => {})
 
     client = Gerry.new(MockGerry::URL, 'gerry', 'whoop')
