@@ -3,7 +3,7 @@ module Gerry
     module Request
       # Get the mapped options.
       #
-      # @param [Array] options the query paramters.
+      # @param [Array] options the query parameters.
       # @return [String] the mapped options.
       def map_options(options)
         options.map{|v| "#{v}"}.join('&')
@@ -20,6 +20,24 @@ module Gerry
           parse(response)
         else
           response = self.class.get(url)
+          parse(response)
+        end
+      end
+
+      def put(url, body)
+        if @username && @password
+          auth = { username: @username, password: @password }
+          response = self.class.put("/a#{url}", 
+            body: body.to_json, 
+            headers: { 'Content-Type' => 'application/json' },
+            digest_auth: auth
+          )
+          parse(response)
+        else
+          response = self.class.put(url, 
+            body: body.to_json,
+            headers: { 'Content-Type' => 'application/json' }
+          )
           parse(response)
         end
       end

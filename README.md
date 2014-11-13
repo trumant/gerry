@@ -1,20 +1,18 @@
-# gerry[![Build Status](https://travis-ci.org/maveonair/gerry.png)][travis]
+# gerry[![Build Status](https://travis-ci.org/trumant/gerry.svg)][travis]
 
 Simple Ruby wrapper for the Gerrit Code Review REST-API.
 
 [travis]: https://travis-ci.org/maveonair/gerry
 
 ## Documentation
-[http://rdoc.info/github/maveonair/gerry][documentation]
+[http://rdoc.info/github/trumant/gerry][documentation]
 
 [documentation]: http://rdoc.info/github/maveonair/gerry
 
 ## Install
 ```
-git clone https://github.com/maveonair/gerry.git
-cd gerry
-gem build gerry.gemspec
-gem install gerry-0.0.1.gem
+bundle
+bundle exec rake install
 ```
 
 ## Examples
@@ -38,12 +36,6 @@ client = Gerry.new('https://review')
 client.changes(['q=is:open'])
 => [{"project"=>"awesome", "branch"=>"master", "id"=>"Ibfedd978...."}]
 ```
-
-## Supported Ruby versions
-This library is [tested again][travis] the following Ruby versions
-
-* Ruby 1.9.2
-* Ruby 1.9.3
 
 ## Licence
 The MIT Licence

@@ -4,11 +4,11 @@ require 'webmock/rspec'
 require_relative '../lib/gerry'
 
 class MockGerry < Gerry::Client
-    URL = 'http://localhost'
-    
-    def initialize
-      super(URL)
-    end
+  URL = 'http://localhost'
+  
+  def initialize
+    super(URL)
+  end
 end
 
 def get_fixture(filename)
@@ -19,5 +19,19 @@ end
 
 def stub_get(url, filename)
   body = get_fixture(filename)
-  stub_request(:get, "#{MockGerry::URL}#{url}").to_return(:status => 200, :body => "#{body}", :headers => {'Content-Type' => 'application/json'})   
+  stub_request(:get, "#{MockGerry::URL}#{url}").
+    to_return(:status => 200, :body => "#{body}", :headers => {'Content-Type' => 'application/json'})
+end
+
+def stub_put(url, body, response_body=nil)
+  response = {
+    status: 200,
+    headers: {
+      'Content-Type' => 'application/json'
+    },
+    body: response_body
+  }
+  stub_request(:put, "#{MockGerry::URL}#{url}").
+    with(:body => body, :headers => { 'Content-Type' => 'application/json' }).
+      to_return(response)
 end
