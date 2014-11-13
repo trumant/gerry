@@ -35,3 +35,16 @@ def stub_put(url, body, response_body=nil)
     with(:body => body, :headers => { 'Content-Type' => 'application/json' }).
       to_return(response)
 end
+
+def stub_post(url, body, response_body=nil)
+  response = {
+    status: 200,
+    headers: {
+      'Content-Type' => 'application/json'
+    },
+    body: response_body
+  }
+  stub_request(:post, "#{MockGerry::URL}#{url}").
+    with(:body => body, :headers => { 'Content-Type' => 'application/json' }).
+      to_return(response)
+end

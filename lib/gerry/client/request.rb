@@ -42,12 +42,33 @@ module Gerry
         end
       end
 
+      def post(url, body)
+        if @username && @password
+          auth = { username: @username, password: @password }
+          response = self.class.post("/a#{url}", 
+            body: body.to_json, 
+            headers: { 'Content-Type' => 'application/json' },
+            digest_auth: auth
+          )
+          parse(response)
+        else
+          response = self.class.post(url, 
+            body: body.to_json,
+            headers: { 'Content-Type' => 'application/json' }
+          )
+          parse(response)
+        end
+      end
+
       def parse(response)
         unless response.code.eql?(200)
           raise_request_error(response)
         end
-
-        JSON.parse(remove_magic_prefix(response.body))
+        if response.body
+          JSON.parse(remove_magic_prefix(response.body))
+        else
+          nil
+        end
       end
 
       def raise_request_error(response)

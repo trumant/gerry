@@ -31,6 +31,27 @@ module Gerry
         body[:owner_id] = owner_id unless owner_id.nil? || owner_id.empty?
         put(url, body)
       end
+
+      # Adds one or more users to a group
+      #
+      # @param [String] group_id the group id
+      # @param [Enumberable] users the list of users identified by email address
+      # @return [Hash] the account info details for each user added
+      def add_to_group(group_id, users)
+        url = "/groups/#{group_id}/members"
+        body = {
+          members: users
+        }
+        post(url, body)
+      end
+
+      def remove_from_group(group_id, users)
+        url = "/groups/#{group_id}/members.delete"
+        body = {
+          members: users
+        }
+        post(url, body)
+      end
     end
   end
 end

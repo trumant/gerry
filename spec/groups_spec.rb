@@ -60,3 +60,34 @@ describe '.create_group' do
     expect(stub).to have_been_requested
   end
 end
+
+describe '.add_to_group' do
+  it "adds users to a group" do
+    users = %w(jane.roe@example.com john.doe@example.com)
+    group_id = "9999c971bb4ab872aab759d8c49833ee6b9ff320"
+    input = {
+      members: users
+    }
+    stub = stub_post("/groups/#{group_id}/members", input.to_json, get_fixture('group_members.json'))
+
+    client = MockGerry.new
+    new_group = client.add_to_group(group_id, users)
+    expect(stub).to have_been_requested
+  end
+end
+
+describe '.remove_from_group' do
+  it "removes users from a group" do
+    users = %w(jane.roe@example.com john.doe@example.com)
+    group_id = "9999c971bb4ab872aab759d8c49833ee6b9ff320"
+    input = {
+      members: users
+    }
+    stub = stub_post("/groups/#{group_id}/members.delete", input.to_json, "")
+
+    client = MockGerry.new
+    new_group = client.remove_from_group(group_id, users)
+    expect(stub).to have_been_requested
+  end
+end
+
