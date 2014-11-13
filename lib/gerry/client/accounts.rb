@@ -15,6 +15,15 @@ module Gerry
         options = map_options(options)
         get("#{url}?#{options}")
       end
+
+      # Get all groups that contain the specified account as a member
+      #
+      # @param [String] account_id the account
+      # @return [Enumberable] the groups
+      def groups_for_account(account_id)
+        url = "/accounts/#{account_id}/groups/"
+        get(url)
+      end
     end
   end
 end

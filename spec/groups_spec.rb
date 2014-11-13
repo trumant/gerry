@@ -90,4 +90,3 @@ describe '.remove_from_group' do
     expect(stub).to have_been_requested
   end
 end
-
