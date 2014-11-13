@@ -7,7 +7,7 @@ Simple Ruby wrapper for the Gerrit Code Review REST-API.
 ## Documentation
 [http://rdoc.info/github/trumant/gerry][documentation]
 
-[documentation]: http://rdoc.info/github/maveonair/gerry
+[documentation]: http://rdoc.info/github/trumant/gerry
 
 ## Install
 ```
@@ -40,7 +40,7 @@ client.changes(['q=is:open'])
 ## Licence
 The MIT Licence
 
-Copyright (c) Fabian Mettler
+Copyright (c) Fabian Mettler, Andrew Erickson, Travis Truman
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
