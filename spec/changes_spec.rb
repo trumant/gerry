@@ -7,14 +7,14 @@ describe '.changes' do
     client = MockGerry.new
     changes = client.changes
     
-    stub.should have_been_requested
+    expect(stub).to have_been_requested
     
-    changes[0]['project'].should eql('awesome')
-    changes[0]['branch'].should eql('master')
+    expect(changes[0]['project']).to eq('awesome')
+    expect(changes[0]['branch']).to eq('master')
     
-    changes[1]['project'].should eql('clean')
-    changes[1]['subject'].should eql('Refactor code')
-    changes[1]['owner']['name'].should eql('Batman')
+    expect(changes[1]['project']).to eq('clean')
+    expect(changes[1]['subject']).to eq('Refactor code')
+    expect(changes[1]['owner']['name']).to eq('Batman')
   end
   
   it 'should fetch all open changes' do
@@ -24,9 +24,9 @@ describe '.changes' do
     client = MockGerry.new
     changes = client.changes(['q=is:open+owner:self'])
     
-    stub.should have_been_requested
+    expect(stub).to have_been_requested
     
-    changes[0]['status'].should eql('OPEN')
-    changes[0]['owner']['name'].should eql('The Duke')
+    expect(changes[0]['status']).to eq('OPEN')
+    expect(changes[0]['owner']['name']).to eq('The Duke')
   end
 end

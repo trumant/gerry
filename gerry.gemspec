@@ -22,7 +22,10 @@ desc
   s.add_runtime_dependency      'httparty'
 
   s.add_development_dependency  'rake'
-  s.add_development_dependency  'rspec'
+  s.add_development_dependency  'rspec', '~> 3.1.0'
   s.add_development_dependency  'rack-test'
   s.add_development_dependency  'webmock'
+  s.add_development_dependency  'guard'
+  s.add_development_dependency  'guard-rspec'
+  s.add_development_dependency  'rb-readline'
 end

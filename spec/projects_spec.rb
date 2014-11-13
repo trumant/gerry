@@ -7,10 +7,10 @@ describe '.projects' do
     client = MockGerry.new
     projects = client.projects
     
-    stub.should have_been_requested
+    expect(stub).to have_been_requested
     
-    projects['awesome']['description'].should eql('Awesome project')
-    projects['clean']['description'].should eql('Clean code!')
+    expect(projects['awesome']['description']).to eq('Awesome project')
+    expect(projects['clean']['description']).to eq('Clean code!')
   end
   
   it 'should fetch a project' do
@@ -19,8 +19,8 @@ describe '.projects' do
     client = MockGerry.new
     projects = client.find_project('awesome')
     
-    stub.should have_been_requested
+    expect(stub).to have_been_requested
     
-    projects['awesome']['description'].should eql('Awesome project')
+    expect(projects['awesome']['description']).to eq('Awesome project')
   end
 end

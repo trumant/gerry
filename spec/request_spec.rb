@@ -6,7 +6,7 @@ describe '.map_options' do
     client = MockGerry.new
     options = client.map_options(['q=createAccount', 'q=createGroup'])
 
-    options.should eql('q=createAccount&q=createGroup')
+    expect(options).to eq('q=createAccount&q=createGroup')
   end
 end
 
@@ -17,7 +17,7 @@ describe '.get' do
     client = MockGerry.new
     client.projects
 
-    stub.should have_been_requested
+    expect(stub).to have_been_requested
   end
 
   it 'should request projects as user' do
@@ -33,9 +33,9 @@ describe '.get' do
     projects = client.projects
 
     # twice because the first is the auth challenge and then the actual request
-    stub.should have_been_requested().twice
+    expect(stub).to have_been_requested.twice
 
-    projects['awesome']['description'].should eql('Awesome project')
-    projects['clean']['description'].should eql('Clean code!')
+    expect(projects['awesome']['description']).to eq('Awesome project')
+    expect(projects['clean']['description']).to eq('Clean code!')
   end
 end

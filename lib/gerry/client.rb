@@ -8,11 +8,13 @@ module Gerry
     
     require_relative 'client/accounts'
     require_relative 'client/changes'
+    require_relative 'client/groups'
     require_relative 'client/projects'
     require_relative 'client/request'
     
     include Accounts
     include Changes
+    include Groups
     include Projects
     include Request
     

@@ -6,10 +6,10 @@ describe '.account_capabilities' do
     
     client = MockGerry.new
     capabilities = client.account_capabilities
-    stub.should have_been_requested
+    expect(stub).to have_been_requested
     
-    capabilities['queryLimit']['min'].should eql(0)
-    capabilities['queryLimit']['max'].should eql(500)    
+    expect(capabilities['queryLimit']['min']).to eq(0)
+    expect(capabilities['queryLimit']['max']).to eq(500)    
   end
   
   it 'should fetch some account capabilities' do
@@ -17,9 +17,9 @@ describe '.account_capabilities' do
     
     client = MockGerry.new
     capabilities = client.account_capabilities(['q=createAccount', 'q=createGroup'])
-    stub.should have_been_requested
+    expect(stub).to have_been_requested
     
-    capabilities['createAccount'].should eql(true)
-    capabilities['createGroup'].should eql(true)    
+    expect(capabilities['createAccount']).to eq(true)
+    expect(capabilities['createGroup']).to eq(true)    
   end
 end
