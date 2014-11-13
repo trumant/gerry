@@ -1,7 +1,3 @@
-# PLEASE NOTE, THIS PROJECT IS NO LONGER BEING MAINTAINED
-
-* * *
-
 # gerry[![Build Status](https://travis-ci.org/maveonair/gerry.png)][travis]
 
 Simple Ruby wrapper for the Gerrit Code Review REST-API.
