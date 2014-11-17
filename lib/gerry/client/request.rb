@@ -61,7 +61,7 @@ module Gerry
       end
 
       def parse(response)
-        unless response.code.eql?(200)
+        unless /2[0-9][0-9]/.match(response.code.to_s)
           raise_request_error(response)
         end
         if response.body
