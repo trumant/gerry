@@ -2,6 +2,8 @@
 
 Simple Ruby wrapper for the Gerrit Code Review REST-API.
 
+![Gary from spongebob square pants](http://en.spongepedia.org/images/3/37/Garry.jpg)
+
 [travis]: https://travis-ci.org/trumant/gerry
 
 ## Documentation
