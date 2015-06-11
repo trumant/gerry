@@ -77,7 +77,9 @@ module Gerry
       end
 
       def remove_magic_prefix(response_body)
-        response_body.lines.to_a[1..-1].join
+        # We need to strip the magic prefix from the first line of the response, see
+        # https://gerrit-review.googlesource.com/Documentation/rest-api.html#output.
+        response_body.sub(/^\)\]\}'$/, '')
       end
     end
   end
