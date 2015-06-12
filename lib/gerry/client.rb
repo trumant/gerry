@@ -4,6 +4,7 @@ require 'json'
 module Gerry
   class Client
     include HTTParty
+    default_options.update :verify => false
     headers 'Accept' => 'application/json'
 
     require_relative 'client/accounts'
