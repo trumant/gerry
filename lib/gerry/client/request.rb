@@ -27,14 +27,14 @@ module Gerry
       def put(url, body)
         if @username && @password
           auth = { username: @username, password: @password }
-          response = self.class.put("/a#{url}", 
-            body: body.to_json, 
+          response = self.class.put("/a#{url}",
+            body: body.to_json,
             headers: { 'Content-Type' => 'application/json' },
             digest_auth: auth
           )
           parse(response)
         else
-          response = self.class.put(url, 
+          response = self.class.put(url,
             body: body.to_json,
             headers: { 'Content-Type' => 'application/json' }
           )
@@ -45,14 +45,14 @@ module Gerry
       def post(url, body)
         if @username && @password
           auth = { username: @username, password: @password }
-          response = self.class.post("/a#{url}", 
-            body: body.to_json, 
+          response = self.class.post("/a#{url}",
+            body: body.to_json,
             headers: { 'Content-Type' => 'application/json' },
             digest_auth: auth
           )
           parse(response)
         else
-          response = self.class.post(url, 
+          response = self.class.post(url,
             body: body.to_json,
             headers: { 'Content-Type' => 'application/json' }
           )

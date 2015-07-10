@@ -7,8 +7,8 @@ module Gerry
       def projects
         get('/projects/')
       end
-      
-      # Get the projects that start with the specified prefix 
+
+      # Get the projects that start with the specified prefix
       # and accessible by the caller.
       #
       # @param [String] name the project name.
