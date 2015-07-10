@@ -65,7 +65,14 @@ module Gerry
           raise_request_error(response)
         end
         if response.body
-          JSON.parse(remove_magic_prefix(response.body))
+          source = remove_magic_prefix(response.body)
+          if source.lines.count == 1 && !source.start_with?('{') && !source.start_with?('[')
+            # Work around the JSON gem not being able to parse top-level values, see
+            # https://github.com/flori/json/issues/206.
+            source.gsub!(/^"|"$/, '')
+          else
+            JSON.parse(source)
+          end
         else
           nil
         end
@@ -79,7 +86,7 @@ module Gerry
       def remove_magic_prefix(response_body)
         # We need to strip the magic prefix from the first line of the response, see
         # https://gerrit-review.googlesource.com/Documentation/rest-api.html#output.
-        response_body.sub(/^\)\]\}'$/, '')
+        response_body.sub(/^\)\]\}'$/, '').strip!
       end
     end
   end
