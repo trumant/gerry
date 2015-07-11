@@ -23,4 +23,32 @@ describe '.projects' do
 
     expect(projects['awesome']['description']).to eq('Awesome project')
   end
+
+  it 'should resolve the symbolic HEAD ref of a project' do
+    project = 'awesome'
+    stub = stub_get("/projects/#{project}/HEAD", 'project_head.json')
+
+    client = MockGerry.new
+    branch = client.get_head(project)
+
+    expect(stub).to have_been_requested
+
+    expect(branch).to eq('refs/heads/stable')
+  end
+
+  it 'should define the symbolic HEAD ref of a project' do
+    project = 'awesome'
+    branch = 'stable'
+    input = {
+      ref: 'refs/heads/' + branch
+    }
+    stub = stub_put("/projects/#{project}/HEAD", input.to_json, get_fixture('project_head.json'))
+
+    client = MockGerry.new
+    new_branch = client.set_head(project, branch)
+
+    expect(stub).to have_been_requested
+
+    expect(new_branch).to eq('refs/heads/' + branch)
+  end
 end
