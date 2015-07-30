@@ -6,12 +6,14 @@ module Gerry
     include HTTParty
     headers 'Accept' => 'application/json'
 
+    require_relative 'client/access'
     require_relative 'client/accounts'
     require_relative 'client/changes'
     require_relative 'client/groups'
     require_relative 'client/projects'
     require_relative 'client/request'
 
+    include Access
     include Accounts
     include Changes
     include Groups
