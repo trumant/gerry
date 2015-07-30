@@ -79,8 +79,7 @@ module Gerry
       end
 
       def raise_request_error(response)
-        body = response.body
-        raise RequestError.new("There was a request error! Response was: #{body}")
+        raise RequestError.new("There was a request error! Response was: #{response.message}")
       end
 
       def remove_magic_prefix(response_body)
