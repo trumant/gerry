@@ -19,6 +19,14 @@ module Gerry
         get(url)
       end
 
+      # Get the directly included groups of a group
+      #
+      # @return [Array] the included groups
+      def included_groups(group_id)
+        url = "/groups/#{group_id}/groups/"
+        get(url)
+      end
+
       # Create a new group
       #
       # @return [Hash] the group details
