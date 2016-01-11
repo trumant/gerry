@@ -1,3 +1,5 @@
+require 'cgi'
+
 module Gerry
   class Client
     module Request
@@ -14,14 +16,34 @@ module Gerry
       end
 
       def get(url)
-        if @username && @password
-          auth = { username: @username, password: @password }
-          response = self.class.get("/a#{url}", digest_auth: auth)
-          parse(response)
-        else
-          response = self.class.get(url)
-          parse(response)
+        orig_url = url
+
+        # Get the original start parameter, if any.
+        query = URI.parse(orig_url).query
+        start = query ? CGI.parse(query)['S'].join.to_i : 0
+
+        # Keep requesting data until there are no more changes.
+        all_results = []
+        loop do
+          response = if @username && @password
+            auth = { username: @username, password: @password }
+            self.class.get("/a#{url}", digest_auth: auth)
+          else
+            self.class.get(url)
+          end
+
+          result = parse(response)
+          unless result.is_a?(Array) && result.last.is_a?(Hash) && result.last.delete('_more_changes')
+            return result
+          end
+
+          all_results.concat(result)
+
+          # Append the start parameter to the URL, overriding any previous start parameter.
+          url = orig_url + "&S=#{start + all_results.size}"
         end
+
+        all_results
       end
 
       def put(url, body)
