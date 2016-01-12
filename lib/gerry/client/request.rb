@@ -40,7 +40,7 @@ module Gerry
           all_results.concat(result)
 
           # Append the start parameter to the URL, overriding any previous start parameter.
-          url = orig_url + "&S=#{start + all_results.size}"
+          url = orig_url + "#{query ? '&' : '?'}S=#{start + all_results.size}"
         end
 
         all_results
