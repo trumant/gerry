@@ -33,11 +33,10 @@ module Gerry
           end
 
           result = parse(response)
-          unless result.is_a?(Array) && result.last.is_a?(Hash) && result.last.delete('_more_changes')
-            return result
-          end
+          return result unless result.is_a?(Array) && result.last.is_a?(Hash)
 
           all_results.concat(result)
+          return all_results unless result.last.delete('_more_changes')
 
           # Append the start parameter to the URL, overriding any previous start parameter.
           url = orig_url + "#{query ? '&' : '?'}S=#{start + all_results.size}"
