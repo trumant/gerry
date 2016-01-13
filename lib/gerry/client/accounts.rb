@@ -7,11 +7,11 @@ module Gerry
       # @return [Hash] the account capabilities.
       def account_capabilities(options = [])
         url = '/accounts/self/capabilities'
-        
+
         if options.empty?
           return get(url)
         end
-        
+
         options = map_options(options)
         get("#{url}?#{options}")
       end
