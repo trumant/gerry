@@ -1,14 +1,16 @@
-require 'cgi'
-
 module Gerry
   class Client
     module Request
       # Get the mapped options.
       #
-      # @param [Array] options the query parameters.
+      # @param [Array] or [Hash] options the query parameters.
       # @return [String] the mapped options.
       def map_options(options)
-        options.map{|v| "#{v}"}.join('&')
+        if options.is_a?(Array)
+          options.map { |v| "#{v}" }.join('&')
+        elsif options.is_a?(Hash)
+          options.map { |k,v| "#{k}=#{v.join(',')}" }.join('&')
+        end
       end
 
       private
@@ -16,33 +18,13 @@ module Gerry
       end
 
       def get(url)
-        orig_url = url
-
-        # Get the original start parameter, if any.
-        query = URI.parse(orig_url).query
-        start = query ? CGI.parse(query)['S'].join.to_i : 0
-
-        # Keep requesting data until there are no more changes.
-        all_results = []
-        loop do
-          response = if @username && @password
-            auth = { username: @username, password: @password }
-            self.class.get("/a#{url}", digest_auth: auth)
-          else
-            self.class.get(url)
-          end
-
-          result = parse(response)
-          return result unless result.is_a?(Array) && result.last.is_a?(Hash)
-
-          all_results.concat(result)
-          return all_results unless result.last.delete('_more_changes')
-
-          # Append the start parameter to the URL, overriding any previous start parameter.
-          url = orig_url + "#{query ? '&' : '?'}S=#{start + all_results.size}"
+        response = if @username && @password
+          auth = { username: @username, password: @password }
+          self.class.get("/a#{url}", digest_auth: auth)
+        else
+          self.class.get(url)
         end
-
-        all_results
+        parse(response)
       end
 
       def put(url, body)
