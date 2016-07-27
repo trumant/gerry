@@ -16,7 +16,7 @@ module Gerry
         end
 
         response = get(url)
-        return response unless response.last.delete('_more_changes')
+        return response if response.empty? || !response.last.delete('_more_changes')
 
         # Get the original start parameter, if any, else start from 0.
         query = URI.parse(url).query
