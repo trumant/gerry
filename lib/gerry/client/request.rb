@@ -13,10 +13,6 @@ module Gerry
         end
       end
 
-      private
-      class RequestError < StandardError
-      end
-
       def get(url)
         response = if @username && @password
           auth = { username: @username, password: @password }
@@ -27,7 +23,7 @@ module Gerry
         parse(response)
       end
 
-      def put(url, body)
+      def put(url, body = nil)
         if @username && @password
           auth = { username: @username, password: @password }
           response = self.class.put("/a#{url}",
@@ -61,6 +57,20 @@ module Gerry
           )
           parse(response)
         end
+      end
+
+      def delete(url)
+        response = if @username && @password
+          auth = { username: @username, password: @password }
+          self.class.delete("/a#{url}", digest_auth: auth)
+        else
+          self.class.delete(url)
+        end
+        parse(response)
+      end
+
+      private
+      class RequestError < StandardError
       end
 
       def parse(response)
