@@ -13,10 +13,6 @@ module Gerry
         end
       end
 
-      private
-      class RequestError < StandardError
-      end
-
       def get(url)
         response = if @username && @password
           auth = { username: @username, password: @password }
@@ -61,6 +57,10 @@ module Gerry
           )
           parse(response)
         end
+      end
+
+      private
+      class RequestError < StandardError
       end
 
       def parse(response)
