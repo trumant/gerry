@@ -23,7 +23,7 @@ module Gerry
         parse(response)
       end
 
-      def put(url, body)
+      def put(url, body = nil)
         if @username && @password
           auth = { username: @username, password: @password }
           response = self.class.put("/a#{url}",
