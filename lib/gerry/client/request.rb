@@ -59,6 +59,16 @@ module Gerry
         end
       end
 
+      def delete(url)
+        response = if @username && @password
+          auth = { username: @username, password: @password }
+          self.class.delete("/a#{url}", digest_auth: auth)
+        else
+          self.class.delete(url)
+        end
+        parse(response)
+      end
+
       private
       class RequestError < StandardError
       end
