@@ -30,7 +30,7 @@ module Gerry
           url = endpoint + '?' + map_options(query)
 
           response.concat(get(url))
-          return response unless response.last.delete('_more_changes')
+          return response if response.empty? || !response.last.delete('_more_changes')
         end
       end
     end
