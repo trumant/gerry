@@ -16,7 +16,7 @@ module Gerry
       def get(url)
         response = if @username && @password
           auth = { username: @username, password: @password }
-          self.class.get("/a#{url}", digest_auth: auth)
+          self.class.get("/a#{url}", @auth_type => auth)
         else
           self.class.get(url)
         end
@@ -29,7 +29,7 @@ module Gerry
           response = self.class.put("/a#{url}",
             body: body.to_json,
             headers: { 'Content-Type' => 'application/json' },
-            digest_auth: auth
+            @auth_type => auth
           )
           parse(response)
         else
@@ -47,7 +47,7 @@ module Gerry
           response = self.class.post("/a#{url}",
             body: body.to_json,
             headers: { 'Content-Type' => 'application/json' },
-            digest_auth: auth
+            @auth_type => auth
           )
           parse(response)
         else
@@ -62,7 +62,7 @@ module Gerry
       def delete(url)
         response = if @username && @password
           auth = { username: @username, password: @password }
-          self.class.delete("/a#{url}", digest_auth: auth)
+          self.class.delete("/a#{url}", @auth_type => auth)
         else
           self.class.delete(url)
         end

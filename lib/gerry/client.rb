@@ -20,8 +20,13 @@ module Gerry
     include Projects
     include Request
 
+    def set_auth_type(auth_type)
+      @auth_type = auth_type
+    end
+
     def initialize(url, username = nil, password = nil)
       self.class.base_uri(url)
+      @auth_type = :digest_auth
 
       if username && password
         @username = username

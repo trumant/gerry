@@ -39,6 +39,15 @@ client.changes(['q=is:open'])
 => [{"project"=>"awesome", "branch"=>"master", "id"=>"Ibfedd978...."}]
 ```
 
+### Authentication type
+Gerrit uses digest authentication by default. This can be changed by
+configuring `auth.gitBasicAuth = true`. If the gerrit server uses
+basic authentication, you need to specify it:
+```ruby
+client = Gerry.new('https://review', 'user', 'p455w0rd')
+client.set_auth_type(:basic_auth)
+```
+
 ## Licence
 The MIT Licence
 
