@@ -51,7 +51,7 @@ client.set_auth_type(:basic_auth)
 ## Licence
 The MIT Licence
 
-Copyright (c) Fabian Mettler, Andrew Erickson, Travis Truman, Sebastian Schuberth
+Copyright (c) Fabian Mettler, Andrew Erickson, Travis Truman, Sebastian Schuberth, Orgad Shaneh
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
