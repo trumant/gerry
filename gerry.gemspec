@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.summary           = "Simple Ruby wrapper for the Gerrit Code Review REST-API."
   s.homepage          = "http://github.com/trumant/gerry"
   s.email             = "trumant@gmail.com"
-  s.authors           = [ "Fabian Mettler", "Andrew Erickson", "Travis Truman", "Sebastian Schuberth" ]
+  s.authors           = [ "Fabian Mettler", "Andrew Erickson", "Travis Truman", "Sebastian Schuberth", "Orgad Shaneh" ]
   s.has_rdoc          = false
 
   s.files             = %w( README.md Rakefile )
