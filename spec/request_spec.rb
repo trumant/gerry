@@ -30,11 +30,10 @@ describe '.get' do
       with(:headers => {'Accept'=>'application/json'}).
         to_return(:status => 200, :body => body, :headers => {})
 
-    client = Gerry.new(MockGerry::URL, 'gerry', 'whoop')
+    client = Gerry.new(MockGerry::URL, username, password)
     projects = client.projects
 
-    # twice because the first is the auth challenge and then the actual request
-    expect(stub).to have_been_requested.twice
+    expect(stub).to have_been_requested
 
     expect(projects['awesome']['description']).to eq('Awesome project')
     expect(projects['clean']['description']).to eq('Clean code!')
@@ -46,11 +45,12 @@ describe '.get' do
 
     body = get_fixture('projects.json')
 
-    stub = stub_request(:get, "http://#{username}:#{password}@localhost/a/projects/").
-      with(:headers => {'Accept'=>'application/json'}).
+    stub = stub_request(:get, "http://localhost/a/projects/").
+      with(:headers => {'Accept'=>'application/json'},
+           :basic_auth => [username, password]).
         to_return(:status => 200, :body => body, :headers => {})
 
-    client = Gerry.new(MockGerry::URL, 'gerry', 'whoop')
+    client = Gerry.new(MockGerry::URL, username, password)
     client.set_auth_type(:basic_auth)
     projects = client.projects
 
