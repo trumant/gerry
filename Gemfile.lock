@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gerry (0.1.4)
+    gerry (0.1.5)
       httparty
 
 GEM
@@ -84,6 +84,3 @@ DEPENDENCIES
   rb-readline
   rspec (~> 3.1.0)
   webmock
-
-BUNDLED WITH
-   1.14.6
