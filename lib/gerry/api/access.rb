@@ -1,7 +1,7 @@
 require 'erb'
 
 module Gerry
-  class Client
+  module Api
     module Access
       # Get access rights for the specified project
       #

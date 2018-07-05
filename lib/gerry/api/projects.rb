@@ -1,5 +1,5 @@
 module Gerry
-  class Client
+  module Api
     module Projects
       # Get the projects accessible by the caller.
       #
@@ -38,6 +38,13 @@ module Gerry
         }
         put(url, body)
       end
+
+      ##
+      # lists the access rights for signle project
+      def project_access(project)
+        get("/projects/#{project}/access")
+      end
     end
+
   end
 end

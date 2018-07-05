@@ -1,11 +1,15 @@
 require 'spec_helper'
+require 'pry'
 
 describe '.projects' do
+  before(:all) do
+    @client = MockGerry.new
+  end
+
   it 'should fetch all projects' do
     stub = stub_get('/projects/', 'projects.json')
 
-    client = MockGerry.new
-    projects = client.projects
+    projects = @client.projects
 
     expect(stub).to have_been_requested
 
@@ -16,8 +20,7 @@ describe '.projects' do
   it 'should fetch a project' do
     stub = stub_get('/projects/awesome', 'projects.json')
 
-    client = MockGerry.new
-    projects = client.find_project('awesome')
+    projects = @client.find_project('awesome')
 
     expect(stub).to have_been_requested
 
@@ -28,8 +31,7 @@ describe '.projects' do
     project = 'awesome'
     stub = stub_get("/projects/#{project}/HEAD", 'project_head.json')
 
-    client = MockGerry.new
-    branch = client.get_head(project)
+    branch = @client.get_head(project)
 
     expect(stub).to have_been_requested
 
@@ -44,11 +46,17 @@ describe '.projects' do
     }
     stub = stub_put("/projects/#{project}/HEAD", input.to_json, get_fixture('project_head.json'))
 
-    client = MockGerry.new
-    new_branch = client.set_head(project, branch)
+    new_branch = @client.set_head(project, branch)
 
     expect(stub).to have_been_requested
 
     expect(new_branch).to eq('refs/heads/' + branch)
+  end
+
+  it 'list access rights' do
+    stub = stub_get('/projects/foo/access', 'branch_access.json')
+
+    accesses = @client.project_access('foo')
+    expect(stub).to have_been_requested
   end
 end

@@ -25,16 +25,16 @@ describe '.get' do
     password = 'whoop'
 
     body = get_fixture('projects.json')
-    
+
     stub = stub_request(:get, "http://localhost/a/projects/").
-      with(:headers => {'Accept'=>'application/json'}).
-        to_return(:status => 200, :body => body, :headers => {})
+             with(:headers => {'Accept'=>'application/json'}).
+             to_return(:status => 200, :body => body, :headers => {})
 
     client = Gerry.new(MockGerry::URL, 'gerry', 'whoop')
     projects = client.projects
 
     # twice because the first is the auth challenge and then the actual request
-    expect(stub).to have_been_requested.twice
+    expect(stub).to have_been_requested
 
     expect(projects['awesome']['description']).to eq('Awesome project')
     expect(projects['clean']['description']).to eq('Clean code!')
@@ -46,9 +46,14 @@ describe '.get' do
 
     body = get_fixture('projects.json')
 
-    stub = stub_request(:get, "http://#{username}:#{password}@localhost/a/projects/").
-      with(:headers => {'Accept'=>'application/json'}).
-        to_return(:status => 200, :body => body, :headers => {})
+    stub = stub_request(:get, 'http://localhost/a/projects/').
+             with(
+               headers:
+                 {
+                   'Accept' => 'application/json',
+                   'Authorization' => 'Basic Z2Vycnk6d2hvb3A='
+                 }
+             ).to_return(:status => 200, :body => body, :headers => {})
 
     client = Gerry.new(MockGerry::URL, 'gerry', 'whoop')
     client.set_auth_type(:basic_auth)

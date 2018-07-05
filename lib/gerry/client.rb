@@ -1,24 +1,39 @@
+# frozen_string_literal: true
+
 require 'httparty'
 require 'json'
 
+require_relative 'api/access'
+require_relative 'api/accounts'
+require_relative 'api/changes'
+require_relative 'api/groups'
+require_relative 'api/projects'
+require_relative 'api/request'
+require_relative 'api/branches'
+
+
 module Gerry
+  ##
+  # Client for gerrit request api
+  #
+  # - for anonymout user
+  #  client = Gerry::Client.new('http://gerrit.example.com')
+  # - for user/password
+  #  client = Gerry::Client.new('http://gerrit.example.com', 'username', 'password')
+  #  
+  #   
+  
   class Client
     include HTTParty
     headers 'Accept' => 'application/json'
 
-    require_relative 'client/access'
-    require_relative 'client/accounts'
-    require_relative 'client/changes'
-    require_relative 'client/groups'
-    require_relative 'client/projects'
-    require_relative 'client/request'
-
-    include Access
-    include Accounts
-    include Changes
-    include Groups
-    include Projects
-    include Request
+    include Api::Access
+    include Api::Accounts
+    include Api::Changes
+    include Api::Groups
+    include Api::Projects
+    include Api::Branches
+    include Api::Request
 
     def set_auth_type(auth_type)
       @auth_type = auth_type
@@ -35,3 +50,4 @@ module Gerry
     end
   end
 end
+

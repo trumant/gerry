@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.date              = Time.now.strftime('%Y-%m-%d')
   s.summary           = "Simple Ruby wrapper for the Gerrit Code Review REST-API."
   s.homepage          = "http://github.com/trumant/gerry"
-  s.email             = "trumant@gmail.com"
-  s.authors           = [ "Fabian Mettler", "Andrew Erickson", "Travis Truman", "Sebastian Schuberth", "Orgad Shaneh" ]
+  s.email             = "wuyingchao@gmail.com"
+  s.authors           = [ "Fabian Mettler", "Andrew Erickson", "Travis Truman", "Sebastian Schuberth", "Orgad Shaneh", 'iiithking' ]
   s.has_rdoc          = false
 
   s.files             = %w( README.md Rakefile )
@@ -22,10 +22,11 @@ desc
   s.add_runtime_dependency      'httparty'
 
   s.add_development_dependency  'rake'
-  s.add_development_dependency  'rspec', '~> 3.1.0'
+  s.add_development_dependency  'rspec'
   s.add_development_dependency  'rack-test'
   s.add_development_dependency  'webmock'
   s.add_development_dependency  'guard'
   s.add_development_dependency  'guard-rspec'
   s.add_development_dependency  'rb-readline'
+  s.add_development_dependency  'pry'
 end

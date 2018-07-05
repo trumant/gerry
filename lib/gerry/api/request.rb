@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module Gerry
-  class Client
-    module Request
+  module Api
+    module Request # :nodoc:
+      class RequestError < StandardError
+      end
+
       # Get the mapped options.
       #
       # @param [Array] or [Hash] options the query parameters.
@@ -15,11 +20,11 @@ module Gerry
 
       def get(url)
         response = if @username && @password
-          auth = { username: @username, password: @password }
-          self.class.get("/a#{url}", @auth_type => auth)
-        else
-          self.class.get(url)
-        end
+                     auth = { username: @username, password: @password }
+                     self.class.get("/a#{url}", @auth_type => auth)
+                   else
+                     self.class.get(url)
+                   end
         parse(response)
       end
 
@@ -27,16 +32,16 @@ module Gerry
         if @username && @password
           auth = { username: @username, password: @password }
           response = self.class.put("/a#{url}",
-            body: body.to_json,
-            headers: { 'Content-Type' => 'application/json' },
-            @auth_type => auth
-          )
+                                    body: body.to_json,
+                                    headers: { 'Content-Type' => 'application/json' },
+                                    @auth_type => auth
+                                   )
           parse(response)
         else
           response = self.class.put(url,
-            body: body.to_json,
-            headers: { 'Content-Type' => 'application/json' }
-          )
+                                    body: body.to_json,
+                                    headers: { 'Content-Type' => 'application/json' }
+                                   )
           parse(response)
         end
       end
@@ -45,39 +50,37 @@ module Gerry
         if @username && @password
           auth = { username: @username, password: @password }
           response = self.class.post("/a#{url}",
-            body: body.to_json,
-            headers: { 'Content-Type' => 'application/json' },
-            @auth_type => auth
-          )
+                                     body: body.to_json,
+                                     headers: { 'Content-Type' => 'application/json' },
+                                     @auth_type => auth
+                                    )
           parse(response)
         else
           response = self.class.post(url,
-            body: body.to_json,
-            headers: { 'Content-Type' => 'application/json' }
-          )
+                                     body: body.to_json,
+                                     headers: { 'Content-Type' => 'application/json' }
+                                    )
           parse(response)
         end
       end
 
       def delete(url)
         response = if @username && @password
-          auth = { username: @username, password: @password }
-          self.class.delete("/a#{url}", @auth_type => auth)
-        else
-          self.class.delete(url)
-        end
+                     auth = { username: @username, password: @password }
+                     self.class.delete("/a#{url}", @auth_type => auth)
+                   else
+                     self.class.delete(url)
+                   end
         parse(response)
       end
 
       private
-      class RequestError < StandardError
-      end
 
       def parse(response)
         unless /2[0-9][0-9]/.match(response.code.to_s)
           raise_request_error(response)
         end
-        if response.body
+        unless response.body.size.zero?
           source = remove_magic_prefix(response.body)
           if source.lines.count == 1 && !source.start_with?('{') && !source.start_with?('[')
             # Work around the JSON gem not being able to parse top-level values, see
