@@ -41,6 +41,9 @@ module Gerry
 
     def initialize(url, username = nil, password = nil)
       self.class.base_uri(url)
+      if username && password
+        self.class.basic_auth(username, password)
+      end
       @auth_type = :digest_auth
 
       if username && password

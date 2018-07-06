@@ -18,59 +18,37 @@ module Gerry
         end
       end
 
+      def options(body = nil)
+        default_options = {
+          headers: {
+            'Content-Type' => 'application/json'
+          }
+        }
+        default_options[:body] = body.to_json
+        default_options
+      end
+
       def get(url)
-        response = if @username && @password
-                     auth = { username: @username, password: @password }
-                     self.class.get("/a#{url}", @auth_type => auth)
-                   else
-                     self.class.get(url)
-                   end
+        response = self.class.get(auth_url(url))
         parse(response)
       end
 
+      def auth_url(url)
+        self.class.default_options[:basic_auth] ? "/a#{url}" : url
+      end
+
       def put(url, body = nil)
-        if @username && @password
-          auth = { username: @username, password: @password }
-          response = self.class.put("/a#{url}",
-                                    body: body.to_json,
-                                    headers: { 'Content-Type' => 'application/json' },
-                                    @auth_type => auth
-                                   )
-          parse(response)
-        else
-          response = self.class.put(url,
-                                    body: body.to_json,
-                                    headers: { 'Content-Type' => 'application/json' }
-                                   )
-          parse(response)
-        end
+        response = self.class.put(auth_url(url), options(body))
+        parse(response)
       end
 
       def post(url, body)
-        if @username && @password
-          auth = { username: @username, password: @password }
-          response = self.class.post("/a#{url}",
-                                     body: body.to_json,
-                                     headers: { 'Content-Type' => 'application/json' },
-                                     @auth_type => auth
-                                    )
-          parse(response)
-        else
-          response = self.class.post(url,
-                                     body: body.to_json,
-                                     headers: { 'Content-Type' => 'application/json' }
-                                    )
-          parse(response)
-        end
+        response = self.class.post(auth_url(url), options(body))
+        parse(response)
       end
 
       def delete(url)
-        response = if @username && @password
-                     auth = { username: @username, password: @password }
-                     self.class.delete("/a#{url}", @auth_type => auth)
-                   else
-                     self.class.delete(url)
-                   end
+        self.class.delete(auth_url(url))
         parse(response)
       end
 
@@ -101,7 +79,8 @@ module Gerry
       def remove_magic_prefix(response_body)
         # We need to strip the magic prefix from the first line of the response, see
         # https://gerrit-review.googlesource.com/Documentation/rest-api.html#output.
-        response_body.sub(/^\)\]\}'$/, '').strip!
+        # magic prefix: )]}
+        response_body[4..-1].strip!
       end
     end
   end
