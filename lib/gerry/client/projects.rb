@@ -17,6 +17,14 @@ module Gerry
         get("/projects/#{name}")
       end
 
+      # Get one commit from a project
+      # @param [String] name of the project.
+      # @param [String] sha of the commit.
+      # @return [Hash] the commit.
+      def find_project_commit(project, sha)
+        get("/projects/#{project}/commits/#{sha}")
+      end
+
       # Get the symbolic HEAD ref for the specified project.
       #
       # @param [String] project the project name.
