@@ -59,4 +59,28 @@ describe '.projects' do
     accesses = @client.project_access('foo')
     expect(stub).to have_been_requested
   end
+
+  it 'create project access rights' do
+    access = {
+      'read' => {
+        'rules' => {
+          'user:kobe' => {
+            'action' => 'ALLOW'
+          }
+        }
+      }
+    }
+
+    body = {
+      'add' => {
+        'refs/heads/*' => {
+          'permissions' => access
+        }
+      }
+    }
+    stub = stub_put('/projects/foo/access', body)
+    response = @client.create_project_access('foo', access)
+    puts(response)
+    expect(stub).to have_been_requested
+  end
 end

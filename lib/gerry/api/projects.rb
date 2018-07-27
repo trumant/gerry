@@ -44,7 +44,26 @@ module Gerry
       def project_access(project)
         get("/projects/#{project}/access")
       end
-    end
 
+      def create_project_access(project, permissions)
+        access = {
+          'add' => permissions
+        }
+        post("/projects/#{project}/access", access)
+      end
+
+      def remove_project_access(project, permissions)
+        access = {
+          'remove' => permissions
+        }
+        post("/projects/#{project}/access", access)
+      end
+
+      ##
+      # Retrieves a commit of a project.
+      def project_commit(project, commit_id)
+        get("/projects/#{project}/commits/#{commit_id}")
+      end
+    end
   end
 end

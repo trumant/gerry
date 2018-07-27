@@ -23,6 +23,7 @@ module Gerry
       # create branch that derived from branch name or revision
       #
       #  example: create_branch('foo', 'master', 'stable')
+      #           create_branch('foo', 'revision', 'stable')
       #
       def create_branch(project_name, source, branch)
         # try source as ref
@@ -34,20 +35,10 @@ module Gerry
         put("/projects/#{project_name}/branches/#{branch}", body)
       end
 
-    
-      def create_branch_access(project, branch, access)
-        body = {
-          'add' => {
-            "refs/heads/#{branch}" => {
-              'permissions' => {
-                'read' => {
-                  'rules' => access
-                }
-              }
-            }
-          }
-        }
-        put("/projects/#{project}/access", body)
+      ##
+      # Gets the reflog of a certain branch.
+      def branch_reflog(project_name, branch, number)
+        get("/projects/#{project_name}/branches/#{branch}/reflog?n=#{number}")
       end
     end
   end
