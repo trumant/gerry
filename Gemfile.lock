@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gerry (0.1.4)
+    gerry (0.1.5)
       httparty
 
 GEM
@@ -85,6 +85,7 @@ DEPENDENCIES
   guard
   guard-rspec
   pry
+  netrc
   rack-test
   rake
   rb-readline

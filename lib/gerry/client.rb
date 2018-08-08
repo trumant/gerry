@@ -49,6 +49,9 @@ module Gerry
       if username && password
         @username = username
         @password = password
+      else
+        require 'netrc'
+        @username, @password = Netrc.read[URI.parse(url).host]
       end
     end
   end
