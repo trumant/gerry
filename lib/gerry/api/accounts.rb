@@ -1,5 +1,5 @@
 module Gerry
-  class Client
+  module Api
     module Accounts
       # Get the account info for the specified account ID.
       #

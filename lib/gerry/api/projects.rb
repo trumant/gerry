@@ -1,5 +1,5 @@
 module Gerry
-  class Client
+  module Api
     module Projects
       # Get the projects accessible by the caller.
       #
@@ -37,6 +37,32 @@ module Gerry
           ref: 'refs/heads/' + branch
         }
         put(url, body)
+      end
+
+      ##
+      # lists the access rights for signle project
+      def project_access(project)
+        get("/projects/#{project}/access")
+      end
+
+      def create_project_access(project, permissions)
+        access = {
+          'add' => permissions
+        }
+        post("/projects/#{project}/access", access)
+      end
+
+      def remove_project_access(project, permissions)
+        access = {
+          'remove' => permissions
+        }
+        post("/projects/#{project}/access", access)
+      end
+
+      ##
+      # Retrieves a commit of a project.
+      def project_commit(project, commit_id)
+        get("/projects/#{project}/commits/#{commit_id}")
       end
     end
   end

@@ -1,7 +1,7 @@
 require 'cgi'
 
 module Gerry
-  class Client
+  module Api
     module Changes
       # Get changes visible to the caller.
       #

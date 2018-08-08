@@ -1,7 +1,7 @@
 require 'json'
 
 module Gerry
-  class Client
+  module Api
     module Groups
       # Get all groups
       #
