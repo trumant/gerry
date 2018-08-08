@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
 gemspec
-gem 'netrc'
+gem 'netrc', :git => 'https://github.com/heroku/netrc.git'

@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/heroku/netrc.git
+  revision: 262ef111199058f89df4573c4f04aae65e5e5041
+  specs:
+    netrc (0.11.0)
+
 PATH
   remote: .
   specs:
@@ -84,8 +90,8 @@ DEPENDENCIES
   gerry!
   guard
   guard-rspec
+  netrc!
   pry
-  netrc
   rack-test
   rake
   rb-readline
@@ -93,4 +99,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.16.1
+   1.16.3
