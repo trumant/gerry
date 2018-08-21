@@ -1,0 +1,21 @@
+)]}'
+[
+  {
+    "ref": "master",
+    "revision": "b3f3113",
+    "can_delete": "yes",
+    "web_lnks": "ab"
+  },
+  {
+    "ref": "develop",
+    "revision": "b3f3114",
+    "can_delete": "yes",
+    "web_lnks": "ab"
+  },
+  {
+    "ref": "stage",
+    "revision": "b3f3114",
+    "can_delete": "yes",
+    "web_lnks": "ab"
+  }
+]

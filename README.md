@@ -1,5 +1,7 @@
 # gerry[![Build Status](https://travis-ci.org/trumant/gerry.svg)][travis]
 
+Base Gerrit Version V2.14.6
+
 Simple Ruby wrapper for the Gerrit Code Review REST-API.
 
 ![Gary from spongebob square pants](http://en.spongepedia.org/images/3/37/Garry.jpg)
