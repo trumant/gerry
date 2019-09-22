@@ -27,6 +27,15 @@ describe '.projects' do
     expect(projects['awesome']['description']).to eq('Awesome project')
   end
 
+  it 'should fetch file content' do
+    stub = stub_get('/projects/awesome/commits/djfkslj/files/README.md/content','README.md.json')
+
+    file = @client.project_file('awesome','djfkslj','README.md')
+
+    expect(stub).to have_been_requested
+    expect(file).to eq('Hello World!')
+  end
+  
   it 'should resolve the symbolic HEAD ref of a project' do
     project = 'awesome'
     stub = stub_get("/projects/#{project}/HEAD", 'project_head.json')

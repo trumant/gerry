@@ -64,6 +64,10 @@ module Gerry
       def project_commit(project, commit_id)
         get("/projects/#{project}/commits/#{commit_id}")
       end
+
+      def project_file(project, commit_id, file_id)
+        get("/projects/#{project}/commits/#{commit_id}/files/#{file_id}/content")
+      end
     end
   end
 end
