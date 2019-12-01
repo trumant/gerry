@@ -20,26 +20,6 @@ describe '.get' do
     expect(stub).to have_been_requested
   end
 
-  it 'should request projects as user with digest auth' do
-    username = 'gerry'
-    password = 'whoop'
-
-    body = get_fixture('projects.json')
-
-    stub = stub_request(:get, "http://localhost/a/projects/").
-             with(:headers => {'Accept'=>'application/json'}).
-             to_return(:status => 200, :body => body, :headers => {})
-
-    client = Gerry.new(MockGerry::URL, 'gerry', 'whoop')
-    projects = client.projects
-
-    # twice because the first is the auth challenge and then the actual request
-    expect(stub).to have_been_requested
-
-    expect(projects['awesome']['description']).to eq('Awesome project')
-    expect(projects['clean']['description']).to eq('Clean code!')
-  end
-
   it 'should request projects as user with basic auth' do
     username = 'gerry'
     password = 'whoop'
@@ -56,7 +36,6 @@ describe '.get' do
              ).to_return(:status => 200, :body => body, :headers => {})
 
     client = Gerry.new(MockGerry::URL, 'gerry', 'whoop')
-    client.set_auth_type(:basic_auth)
     projects = client.projects
 
     expect(stub).to have_been_requested
