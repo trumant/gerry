@@ -18,13 +18,14 @@ module Gerry
         end
       end
 
-      def options(body = nil)
+      def options(body = nil, is_json = true)
+        return {} unless body
         default_options = {
           headers: {
-            'Content-Type' => 'application/json'
+            'Content-Type' => is_json ? 'application/json' : 'text/plain'
           }
         }
-        default_options[:body] = body.to_json
+        default_options[:body] = is_json ? body.to_json : body
         default_options
       end
 
@@ -37,13 +38,13 @@ module Gerry
         self.class.default_options[:basic_auth] ? "/a#{url}" : url
       end
 
-      def put(url, body = nil)
-        response = self.class.put(auth_url(url), options(body))
+      def put(url, body = nil, is_json = true)
+        response = self.class.put(auth_url(url), options(body, is_json))
         parse(response)
       end
 
-      def post(url, body)
-        response = self.class.post(auth_url(url), options(body))
+      def post(url, body, is_json = true)
+        response = self.class.post(auth_url(url), options(body, is_json))
         parse(response)
       end
 
