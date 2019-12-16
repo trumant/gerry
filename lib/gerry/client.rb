@@ -36,7 +36,7 @@ module Gerry
     include Api::Request
 
     def set_auth_type(auth_type)
-      @auth_type = auth_type
+      warn 'set_auth_type is deprecated. digest auth is no longer supported'
     end
 
     def initialize(url, username = nil, password = nil)
@@ -44,7 +44,6 @@ module Gerry
       if username && password
         self.class.basic_auth(username, password)
       end
-      @auth_type = :digest_auth
 
       if username && password
         @username = username
